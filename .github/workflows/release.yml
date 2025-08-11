@@ -3,9 +3,16 @@ permissions:
   contents: write
 on:
   push:
+    branches:
+      - main
+      - master
+    tags:
+      - v[0-9]+.*
   pull_request:
+    branches:
+      - main
+      - master
   workflow_dispatch:
-  
 jobs:
   upload-release:
     strategy:
@@ -31,8 +38,11 @@ jobs:
         with:
           targets: ${{ matrix.info.target }}
           components: clippy, rustfmt
+      - name: Verify target installation
+        run: rustup target list --installed
       - name: Build Example
         run: cd examples && cargo build --release --target ${{ matrix.info.target }}
+        timeout-minutes: 30
       - name: Package Example
         shell: bash
         env:
