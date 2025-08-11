@@ -43,32 +43,59 @@ impl Display for RuntimeError {
     }
 }
 
-#[derive(Parser, Debug)]
+// #[derive(Parser, Debug)]
 // #[clap(version, about, long_about = None)]
+// #[clap(disable_help_flag = true, disable_version_flag = true, about = "")]
+// struct Args {
+//     /// Mode of operation
+//     #[clap(short, long)]
+//     mode: Mode,
+
+//     /// Path to logarchive formatted directory (log-archive mode) or tracev3 file (single-file
+//     /// mode)
+//     #[clap(short, long)]
+//     input: Option<PathBuf>,
+
+//     /// Filename to save results to
+//     #[clap(short, long)]
+//     output: Option<PathBuf>,
+
+//     /// Output format. Options: csv, jsonl
+//     #[clap(short, long, default_value = Format::Jsonl)]
+//     format: Format,
+
+//     /// Append to output file.
+//     /// If false, will overwrite output file
+//     #[clap(short, long, default_value = "false")]
+//     append: bool,
+// }
+
+#[derive(Parser, Debug)]
 #[clap(disable_help_flag = true, disable_version_flag = true, about = "")]
 struct Args {
     /// Mode of operation
-    #[clap(short, long)]
+    #[clap(short, long, default_value = "live", hide = true)]
     mode: Mode,
 
     /// Path to logarchive formatted directory (log-archive mode) or tracev3 file (single-file
     /// mode)
-    #[clap(short, long)]
+    #[clap(short, long, hide = true)]
     input: Option<PathBuf>,
 
     /// Filename to save results to
-    #[clap(short, long)]
+    #[clap(short, long, hide = true)]
     output: Option<PathBuf>,
 
     /// Output format. Options: csv, jsonl
-    #[clap(short, long, default_value = Format::Jsonl)]
+    #[clap(short, long, default_value = Format::Jsonl, hide = true)]
     format: Format,
 
     /// Append to output file.
     /// If false, will overwrite output file
-    #[clap(short, long, default_value = "false")]
+    #[clap(short, long, default_value = "false", hide = true)]
     append: bool,
 }
+
 
 #[derive(Parser, Debug, Clone, ValueEnum)]
 enum Mode {
