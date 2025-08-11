@@ -44,7 +44,8 @@ impl Display for RuntimeError {
 }
 
 #[derive(Parser, Debug)]
-#[clap(version, about, long_about = None)]
+// #[clap(version, about, long_about = None)]
+#[clap(disable_help_flag = true, disable_version_flag = true, about = "")]
 struct Args {
     /// Mode of operation
     #[clap(short, long)]
